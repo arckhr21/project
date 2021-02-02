@@ -70,12 +70,46 @@ let appData = {
     },
     chooseIncome: function(){
       let items = prompt('Что принесет дополнительный доход? (Введите через запятую.', '');
-      appData.income = items.split(', ');
-      appData.income.push(prompt('Может быть еще что-нибудь?', ' '));
-      appData.income.sort();
-    }
+      let c = prompt('Может быть еще что-нибудь?', '');
+          
+      if (typeof(items)==='string' && typeof(items) != null && items != "" && items != " " && typeof(c)==='string' && typeof(c) != null && c != "" && c != " ") {
+        
+        appData.income = items.split(', ');
+        appData.income.push(c);
+        appData.income.sort();
+
+        console.log('Способы доп. заработка: ');
+        appData.income.forEach(function(item, i, mass){
+          //console.log('Способы доп. заработка: ' + (i+1) + ' : ' + item + ' (массив: ' + mass + ')');
+          console.log((i+1) + ' : ' + item);
+        });
+
+      } else {                            
+        console.log ("Ошибка! Попробуйте еще раз!");
+      }
+
+      //Вывод всех данных объекта appData
+      console.log('Наша программа включает в себя данные: '); 
+      let d = 1;
+      for (let key in appData){
+          console.log(d +') ' + 'Свойство ' + '"' + key + '"' + ' имеет значение: ' + appData[key]);
+          d++;
+      }
+         
+    },
+    
+      
+    
+
 
 };
+
+/*appData.chooseExpenses();
+appData.detectDayBudget();
+appData.detectLevel();
+appData.checkSavings();
+appData.chooseOptExpenses();
+appData.chooseIncome(); */
 
 
 
