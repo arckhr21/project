@@ -121,7 +121,7 @@ console.log(arr);*/
 
 console.log(i);*/
 
-let arr = [1, 15, 4],
+/*let arr = [1, 15, 4],
     i = arr.sort(compareNum);
 
 function compareNum(a,b){
@@ -145,11 +145,60 @@ john.__proto__=soldier;
 console.log(john);
 console.log(john.armor);
 
+//test
+//2
+let a = [ ] + false - null + true;
+console.log(a);
+
+//3
+let y = 1;
+let x=y=2;
+alert(x);
+
+//4
+//let b= [ ] + 1 + 2;
+//console.log(b);
 
 
+//5 Что выведет alert( "1"[0] 
+//alert( "1"[0]);
 
+//6
+//console.log(2 && 1 && null && 0 && undefined );
 
+//7
+//let a, b;
+//console.log(typeof(a&&b));
 
+//console.log(typeof(!!(a&&b)));*/
 
+//8
+//alert(null || 2 && 3 || 4);
+//console.log(typeof(alert(null || 2&&3 || 4)));
 
+//9
+/*let a = [1,2,3],
+    b = [1,2,3];
 
+    if (a == b){
+        console.log('y');
+    } else {
+        console.log('n'); 
+    }*/
+
+//10
+//alert(+"Infinity");
+
+//11
+/*let a = "Ёжик",
+    b = "яблоко";
+
+    if (a > b){
+        console.log('y');
+    } else {
+        console.log('n'); 
+    }*/
+
+//12
+let a = (0||''||undefined||true||false);
+console.log(a);
