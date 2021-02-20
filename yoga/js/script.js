@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function(){
     
     //Timer
 
-    let deadLine = '2021-02-18';
+    let deadLine = '2024-02-18';
 
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
@@ -103,5 +103,41 @@ window.addEventListener('DOMContentLoaded', function(){
     };
 
     setClock('timer', deadLine);
+
+    //Modal
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+
+    more.addEventListener('click', function() {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+
+    close.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
+
+    //Привязка к кнопке "Узнать подробнее"
+
+    let knowMore = document.querySelector('.info'); //родитель для кнопок "description-btn"
+    //console.log(knowMore);
+
+    knowMore.addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains("description-btn")) {
+            //console.log('OK');
+
+            overlay.style.display = 'block';
+            this.classList.add('more-splash');
+            document.body.style.overflow = 'hidden';
+        };
+    });
+
+        
+
 });
 
