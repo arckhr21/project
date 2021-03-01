@@ -137,7 +137,117 @@ window.addEventListener('DOMContentLoaded', function(){
         };
     });
 
-        
+    //Form
+    //Объект сообщений пользователю о состоянии запросов
+    let message = {
+        loading: 'Загрузка...',
+        success: 'Спасибо! Скоро мы с вами свяжемся.',
+        failure: 'Что-то пошло не так...'
+    };
 
+    //Создаем переменные для работы с формой
+    
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByTagName('input'),
+
+        statusMessage = document.createElement('div'); //создаем новый элемент для вывода сообщений на страницу
+
+        statusMessage.classList.add('status'); //добавляем к нашему элементу класс, стили которого написали в CSS
+
+    //Навешиваем на форму обработчик события 'submit'
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); //отключаем стандартную перезагрузку страницы браузера при событии 'submit'
+        form.appendChild(statusMessage); //добавляем наш новый элемент для вывода сообщения на страницу
+
+        let request = new XMLHttpRequest(); //создаем новый объект запроса и помещаем его в переменную request
+        //request.open('POST', 'http://learn.test/yoga/server.php'); 
+        request.open('POST', 'server.php');
+      
+        //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //заголовок formData
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); //заголовок JSON
+        
+        let formData = new FormData(form); //создаем элемент объекта FormData и помещаем в него нашу форму (наши данные)
+        
+        let obj = {};
+        formData.forEach(function(value, key) {
+            obj[key] = value;
+        });  //заполняем объект ключ: значение.
+
+        let json = JSON.stringify(obj);
+               
+        //request.send(formData);
+        request.send(json);
+
+        request.addEventListener('readystatechange', function() {  //навешиваем на запрос контроль состояния свойства readyState
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading; //наше сообщение
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success; //наше сообщение
+            } else {
+                statusMessage.innerHTML = message.failure; //наше сообщение
+            };
+
+        });
+    
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        };
+
+    }); 
+
+    //Передача данных из формы "Контакты"   
+    let messageContact = {
+        loading: 'Загрузка...',
+        success: 'Спасибо! Скоро мы с вами свяжемся.',
+        failure: 'Что-то пошло не так...'
+    };
+
+    let formContact = document.querySelector('#form'),
+        inputContact = formContact.getElementsByTagName('input'),
+        statusMessageContact = document.createElement('div'); //создаем новый элемент для вывода сообщений на страницу
+        
+        statusMessageContact.classList.add('statuscontact'); //добавляем к нашему элементу класс, стили которого написали в CSS
+
+
+        formContact.addEventListener('submit', function(event) {
+            event.preventDefault(); //отключаем стандартную перезагрузку страницы браузера при событии 'submit'
+            formContact.appendChild(statusMessageContact); //добавляем наш новый элемент для вывода сообщения на страницу
+    
+            let requestContact = new XMLHttpRequest(); //создаем новый объект запроса и помещаем его в переменную request
+            //requestContact.open('POST', 'http://learn.test/yoga/server.php'); 
+            requestContact.open('POST', 'servercontact.php');
+          
+            //requestContact.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //заголовок formData
+            requestContact.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); //заголовок JSON
+            
+            let formDataContact = new FormData(formContact); //создаем элемент объекта FormData и помещаем в него нашу форму (наши данные)
+            
+            let objContact = {};
+            formDataContact.forEach(function(value, key) {
+                objContact[key] = value;
+            });  //заполняем объект ключ: значение.
+    
+            let jsonContact = JSON.stringify(objContact);
+                   
+            //requestContact.send(formData);
+            requestContact.send(jsonContact);
+    
+            requestContact.addEventListener('readystatechange', function() {  //навешиваем на запрос контроль состояния свойства readyState
+                if (requestContact.readyState < 4) {
+                    statusMessageContact.innerHTML = messageContact.loading; //наше сообщение
+                } else if (requestContact.readyState === 4 && requestContact.status == 200) {
+                    statusMessageContact.innerHTML = messageContact.success; //наше сообщение
+                } else {
+                    statusMessageContact.innerHTML = messageContact.failure; //наше сообщение
+                };
+    
+            });
+        
+            for (let i = 0; i < inputContact.length; i++) {
+                inputContact[i].value = '';
+            };
+    
+        });     
+ 
 });
 

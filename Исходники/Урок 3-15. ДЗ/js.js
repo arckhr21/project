@@ -79,11 +79,7 @@ class Option {
 let a = new Option (50, 600, 'red', 12, 'center');
 
 let text = 'Тест';
-// a.style.height = 50px;
-// a.style.width = 300px
-// a.style.background = yellow;
-// a.style.fontSize = 12px;
-// a.style.textAlign = center;
+
 a.newTextElement (text);
 
 
