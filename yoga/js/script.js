@@ -208,6 +208,10 @@ window.addEventListener('DOMContentLoaded', function(){
         
         statusMessageContact.classList.add('statuscontact'); //добавляем к нашему элементу класс, стили которого написали в CSS
 
+        //Устанавливаем стили нашего сообщения
+        //statusMessageContact.style.backgroundColor += 'red';
+        statusMessageContact.style.marginTop += '30px'; // "+=" предотвращает переобредение стилей в файле CSS
+        statusMessageContact.style.color += 'white';
 
         formContact.addEventListener('submit', function(event) {
             event.preventDefault(); //отключаем стандартную перезагрузку страницы браузера при событии 'submit'
