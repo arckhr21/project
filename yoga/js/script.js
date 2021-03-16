@@ -154,7 +154,7 @@ window.addEventListener('DOMContentLoaded', function(){
         statusMessage = document.createElement('div'); //создаем новый элемент для вывода сообщений на страницу
         
         statusMessage.classList.add('status'); //добавляем к нашему элементу класс, стили которого написали в CSS 
-        statusMessage.style.marginTop += '30px'; // "+=" предотвращает переобредение стилей в файле CSS
+        statusMessage.style.marginTop += '30px'; // "+=" предотвращает переопределение стилей в файле CSS
         statusMessage.style.color += 'white';
     
     function sendForm(elem) {
@@ -164,57 +164,48 @@ window.addEventListener('DOMContentLoaded', function(){
             event.preventDefault(); //отключаем стандартную перезагрузку страницы браузера при событии 'submit'
             elem.appendChild(statusMessage); //добавляем наш новый элемент для вывода сообщения на страницу
     
-            function sendData (data) {
-                return new Promise(function(resolve, reject) {
-                    let request = new XMLHttpRequest(); //создаем новый объект запроса и помещаем его в переменную request
+        //    function sendData (data) {
+        //        return new Promise(function(resolve, reject) {
+            let request = new XMLHttpRequest(); //создаем новый объект запроса и помещаем его в переменную request
             
-                    request.open('POST', 'server.php');
+            request.open('POST', 'http://learn.test/yoga/server.php');
 
-                    //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //заголовок formData
-                    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); //заголовок JSON
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //заголовок formData
+            //request.setRequestHeader('Content-Type', 'application/json; charset=utf-8'); //заголовок JSON
 
-                    request.send(data);
-
-                    request.addEventListener('readystatechange', function() {  //навешиваем на запрос контроль состояния свойства readyState
-                        if (request.readyState === 4 && request.status == 200) {
-                            resolve();
-                        } else if (request.readyState < 4) {
-                            resolve();
-                        } else {
-                            reject();
-                        };
-            
-                    });
-                })
-            }
-            
             let formData = new FormData(elem); //создаем элемент объекта FormData и помещаем в него нашу форму (наши данные)
             
-            let obj = {};
-            formData.forEach(function(value, key) {
-                obj[key] = value;
-            });  //заполняем объект ключ: значение.
+            // let obj = {};
+            // formData.forEach(function(value, key) {
+            //     obj[key] = value;
+            // });  //заполняем объект ключ: значение.
     
-            let json = JSON.stringify(obj);
-                  
-            function clearInput() {
-                for (let i = 0; i < input.length; i++) {
-                    input[i].value = '';
-                };
-            }
-    
-            sendData(json)
-                .then(() => statusMessage.innerHTML = message.loading) 
-                .then(() => statusMessage.innerHTML = message.success)
-                .catch(() => statusMessage.innerHTML = message.failure)
-                .then(clearInput)
-    
-        }); 
+            //let json = JSON.stringify(obj);
+            
+            request.send(formData);
+            //request.send(json);
+
+            request.addEventListener('readystatechange', function() {  //навешиваем на запрос контроль состояния свойства readyState
+                if (request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if (request.readyState === 4 && request.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+            
+            });
+
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = '';
+            };
+        })
 
     }
 
     sendForm(form);
     sendForm(formContact);
+    
  
 });  //End Window
 
